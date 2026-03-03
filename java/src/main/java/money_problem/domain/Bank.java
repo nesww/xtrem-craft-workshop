@@ -21,13 +21,21 @@ public final class Bank {
         exchangeRates.put(currency1 + "->" + currency2, rate);
     }
 
-    public double convert(double amount, Currency currency1, Currency currency2) throws MissingExchangeRateException {
-        if (!(currency1 == currency2 || exchangeRates.containsKey(currency1 + "->" + currency2))) {
-            throw new MissingExchangeRateException(currency1, currency2);
+    public double convert(double amount, Currency from, Currency to) throws MissingExchangeRateException {
+        if (!convertable(from, to)) {
+            throw new MissingExchangeRateException(from,to);
         }
-        return currency1 == currency2
+        return from == to
                 ? amount
-                : amount * exchangeRates.get(currency1 + "->" + currency2);
+                : amount * exchangeRates.get(from + "->" + to);
+    }
+
+    private boolean convertable(Currency from, Currency to){
+        return ((from == to || hasExchangeRates(from, to)));
+    }
+
+    private boolean hasExchangeRates(Currency from, Currency to) {
+        return exchangeRates.containsKey(from + "->" + to);
     }
 
 }
