@@ -21,4 +21,26 @@ public class PortefolioTest {
         //Then
         assertThat(evalutionPortfolio).isEqualTo(expectedResult);
     }   
+
+    @Test 
+    void evaluate_portfolio_amount_in_different_currencies() {
+        //Given 
+        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        bank.addExchangeRate(USD, EUR, 0.8);
+        int expectedResult1 = 22;
+        int expectedResult2 = 18;
+        Portfolio portfolio = new Portfolio();
+
+        portfolio.Add(10, EUR);
+        portfolio.Add(10,USD);
+        
+        //When 
+        double evalutionPortfolio1 = portfolio.Evaluate(bank,EUR);
+        double evalutionPortfolio2 = portfolio.Evaluate(bank,USD);
+
+        //Then
+        assertThat(evalutionPortfolio1).isEqualTo(expectedResult1);
+        assertThat(evalutionPortfolio2).isEqualTo(expectedResult2);
+    } 
+
 }
