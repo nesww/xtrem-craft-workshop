@@ -1,5 +1,7 @@
 package money_problem.domain;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,5 +44,15 @@ public class PortefolioTest {
         assertThat(evalutionPortfolio1).isEqualTo(expectedResult1);
         assertThat(evalutionPortfolio2).isEqualTo(expectedResult2);
     } 
+
+    @Test 
+    void evaluate_portfolio_with_unknown_exchange_rates() {
+        //Given 
+        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Portfolio portfolio = new Portfolio();
+        
+        //When 
+        assertThrows(Exception.class, portfolio.Evaluate(bank,KRW));
+    }   
 
 }
