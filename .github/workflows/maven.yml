@@ -41,7 +41,7 @@ jobs:
     - name: Lint
       working-directory: java
       run: |
-        mvn -B checkstyle:check \
+        mvn -B checkstyle:checkstyle \
           -Dcheckstyle.config.location=google_checks.xml \
           -Dcheckstyle.violationSeverity=warning
 
