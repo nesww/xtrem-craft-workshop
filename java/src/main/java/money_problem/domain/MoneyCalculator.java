@@ -1,6 +1,6 @@
 package money_problem.domain;
 
-public class MoneyCalculator {
+public final class MoneyCalculator {
     public static double add(double amount, Currency currency, double amount2) {
         return amount + amount2;
     }

@@ -33,8 +33,8 @@ public class PortfolioTest {
         int expectedResult2 = 22;
         Portfolio portfolio = new Portfolio();
 
-        portfolio.Add(10, EUR);
-        portfolio.Add(10, USD);
+        assertThat(portfolio.Add(10, EUR)).isEqualTo(10);
+        assertThat(portfolio.Add(10, USD)).isEqualTo(10);
 
         //When
         double evalutionPortfolio1 = portfolio.Evaluate(bank, EUR);
