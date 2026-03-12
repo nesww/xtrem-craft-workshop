@@ -24,6 +24,12 @@ jobs:
       working-directory: java
       run: mvn -B package
 
+    - name: Upload build output
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: java/target/
+
   quality:
     runs-on: ubuntu-latest
     needs: build
@@ -37,6 +43,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Download build output
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+        path: java/target/
 
     - name: Lint
       working-directory: java
@@ -77,6 +89,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Download build output
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+        path: java/target/
 
     - name: Run PIT mutation testing
       working-directory: java
