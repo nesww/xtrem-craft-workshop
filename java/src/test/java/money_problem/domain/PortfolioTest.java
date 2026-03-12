@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class PortefolioTest {
+public class PortfolioTest {
 
     @Test
-    void evaluate_empty_portfolio() {
+    void evaluate_empty_portfolio() throws MissingExchangeRateException {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         int expectedResult = 0;
@@ -24,12 +24,13 @@ public class PortefolioTest {
     }
 
     @Test
-    void evaluate_portfolio_amount_in_different_currencies() {
+    void evaluate_portfolio_amount_in_different_currencies()
+        throws MissingExchangeRateException {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         bank.addExchangeRate(USD, EUR, 0.8);
-        int expectedResult1 = 22;
-        int expectedResult2 = 18;
+        int expectedResult1 = 18;
+        int expectedResult2 = 22;
         Portfolio portfolio = new Portfolio();
 
         portfolio.Add(10, EUR);
@@ -49,8 +50,9 @@ public class PortefolioTest {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         Portfolio portfolio = new Portfolio();
+        portfolio.Add(10, KRW);
 
         //When
-        assertThrows(Exception.class, () -> portfolio.Evaluate(bank, KRW));
+        assertThrows(MissingExchangeRateException.class, () -> portfolio.Evaluate(bank, EUR));
     }
 }
