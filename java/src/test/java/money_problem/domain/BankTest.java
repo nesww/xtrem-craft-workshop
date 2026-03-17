@@ -14,9 +14,9 @@ class BankTest {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         int expectedAmount = 12;
-        
+        Money m = new Money(10, EUR);
         //When
-        double amount = bank.convert(10, EUR, USD);
+        double amount = bank.convert(m, USD);
         
         //Then
         assertThat(amount).isEqualTo(expectedAmount);
@@ -27,9 +27,10 @@ class BankTest {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         int expectedAmount = 10;
+        Money m = new Money(10, EUR);
 
         //When 
-        double amount = bank.convert(10, EUR, EUR);
+        double amount = bank.convert(m, EUR);
 
         //Then
         assertThat(amount)
@@ -40,7 +41,8 @@ class BankTest {
     void convert_currency_to_currency_with_unknown_exchange_rate_throws_exception_on_missing_exchange_rate() {
         assertThatThrownBy(() -> {
             Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
-            bank.convert(10, EUR, KRW);
+            Money m = new Money(10, EUR);
+            bank.convert(m, KRW);
         })
                 .isInstanceOf(MissingExchangeRateException.class)
                 .hasMessage("EUR->KRW");
@@ -53,10 +55,11 @@ class BankTest {
         int expectedAmount = 12;
         Bank bank2 = Bank.withExchangeRate(EUR, USD, 1.3);
         int expectedAmount2 = 13;
+        Money m = new Money(10, EUR);
 
         //when
-        double amount = bank.convert(10, EUR, USD);
-        double amount2 = bank2.convert(10, EUR, USD);
+        double amount = bank.convert(m, USD);
+        double amount2 = bank2.convert(m, USD);
 
         //Then
         assertThat(amount)

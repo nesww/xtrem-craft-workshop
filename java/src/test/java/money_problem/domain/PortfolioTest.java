@@ -32,9 +32,11 @@ public class PortfolioTest {
         int expectedResult1 = 18;
         int expectedResult2 = 22;
         Portfolio portfolio = new Portfolio();
-
-        assertThat(portfolio.Add(10, EUR)).isEqualTo(10);
-        assertThat(portfolio.Add(10, USD)).isEqualTo(10);
+        Money m_eur = new Money(10, EUR);
+        Money m_usd = new Money(10, USD);
+        
+        assertThat(portfolio.Add(m_eur)).isEqualTo(new Money(10, EUR));
+        assertThat(portfolio.Add(m_usd)).isEqualTo(new Money(10, USD));
 
         //When
         double evalutionPortfolio1 = portfolio.Evaluate(bank, EUR);
@@ -50,7 +52,7 @@ public class PortfolioTest {
         //Given
         Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
         Portfolio portfolio = new Portfolio();
-        portfolio.Add(10, KRW);
+        portfolio.Add(new Money(10, KRW));
 
         //When
         assertThrows(MissingExchangeRateException.class, () -> portfolio.Evaluate(bank, EUR));

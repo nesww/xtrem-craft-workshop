@@ -15,4 +15,8 @@ public record Money (double amount, Currency currency) {
     public Money divide(int by){
         return new Money(this.amount / by, this.currency);
     }
+
+    public boolean hasSameCurrency(Money other) {
+        return this.currency() == other.currency();
+    }
 }
