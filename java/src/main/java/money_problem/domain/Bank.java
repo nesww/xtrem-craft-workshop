@@ -17,6 +17,12 @@ public final class Bank {
         return bank;
     }
 
+    public static Bank withExchangesRates(Currency pivot, Map<Currency, Double> exchangesRates) {
+        var bank = new Bank(new HashMap<>());
+        bank.exchangeRates = exchangesRates;
+        return bank;
+    }
+
     public void addExchangeRate(Currency currency1, Currency currency2, double rate) {
         exchangeRates.put(currency1 + "->" + currency2, rate);
     }

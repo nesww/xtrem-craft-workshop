@@ -25,10 +25,6 @@ public class BankBuilder {
     }
 
     public Bank build() {
-        Bank bank = Bank.withExchangeRate(currency, (Currency) exchangesRates.keySet().toArray()[0], (Double) exchangesRates.values().toArray()[0]);
-        for (int i = 1; i < exchangesRates.size(); i++) {
-            bank.addExchangeRate(currency, (Currency) exchangesRates.keySet().toArray()[i], (Double) exchangesRates.values().toArray()[i]);
-        }
-        return bank;
+        return Bank.withExchangesRates(currency, exchangesRates);
     }
 }
