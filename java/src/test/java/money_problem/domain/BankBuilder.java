@@ -19,7 +19,10 @@ public class BankBuilder {
         return this;
     }
 
-    public BankBuilder withExchangeRate(Currency currency, double v) {
+    public BankBuilder withExchangeRate(Currency currency, double v)  throws  InvalidArgumentException{
+        if (v <= 0) {
+            throw new InvalidArgumentException("Exchange rate should not be negative.");
+        }
         this.exchangesRates.put(currency,v);
         return this;
     }

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BankTest {
 
     @Test
-    void convert_from_currency_to_other_currency_returns_double_convertions() throws MissingExchangeRateException {
+    void convert_from_currency_to_other_currency_returns_double_convertions() throws MissingExchangeRateException, InvalidArgumentException {
         
         //Given
         Bank bank = BankBuilder.aBank()
@@ -28,7 +28,7 @@ class BankTest {
     }
 
     @Test
-    void convert_currency_to_same_currency_returns_same_value() throws MissingExchangeRateException {
+    void convert_currency_to_same_currency_returns_same_value() throws MissingExchangeRateException, InvalidArgumentException {
         //Given
         Bank bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
@@ -60,7 +60,7 @@ class BankTest {
     }
 
     @Test
-    void convert_FromTo_with_different_exchange_rates_returns_different_amounts() throws MissingExchangeRateException {
+    void convert_FromTo_with_different_exchange_rates_returns_different_amounts() throws MissingExchangeRateException, InvalidArgumentException {
         //Given
         Bank bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
@@ -88,13 +88,12 @@ class BankTest {
     @Test
     void given_negative_exchange_rate_bank_when_adding_exchange_rate_throws_exception() throws InvalidArgumentException {
         //Given
-        double invalidExchangeRates = -2.;
+        double invalidExchangeRate = -2.;
         BankBuilder bank = BankBuilder.aBank()
-                .withPivotCurrency(EUR)
-                .withExchangeRate(USD, 1.2);
+                .withPivotCurrency(EUR);
 
         //When / Then
-        assertThrows(InvalidArgumentException.class,() -> bank.build());
+        assertThrows(InvalidArgumentException.class, () -> bank.withExchangeRate(USD, invalidExchangeRate));
     }
 
 }

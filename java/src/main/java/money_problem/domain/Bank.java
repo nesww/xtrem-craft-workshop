@@ -27,6 +27,9 @@ public final class Bank {
     }
 
     public void addExchangeRate(Currency currency, double rate) {
+        if (rate <= 0) {
+            throw new InvalidArgumentException("Exchange rate should not be negative.");
+        }
         exchangeRates.put(currency, rate);
     }
 

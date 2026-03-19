@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class PortfolioTest {
 
     @Test
-    void evaluate_empty_portfolio() throws MissingExchangeRateException {
+    void evaluate_empty_portfolio() throws MissingExchangeRateException, InvalidArgumentException {
         //Given
         Bank bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
@@ -28,7 +28,7 @@ public class PortfolioTest {
 
     @Test
     void evaluate_portfolio_amount_in_different_currencies()
-        throws MissingExchangeRateException {
+            throws MissingExchangeRateException, InvalidArgumentException {
         //Given
         Bank bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
@@ -54,7 +54,7 @@ public class PortfolioTest {
     }
 
     @Test
-    void evaluate_portfolio_with_unknown_exchange_rates() {
+    void evaluate_portfolio_with_unknown_exchange_rates() throws InvalidArgumentException {
         //Given
         Bank bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
