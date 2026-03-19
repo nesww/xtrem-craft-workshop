@@ -12,7 +12,10 @@ public class PortfolioTest {
     @Test
     void evaluate_empty_portfolio() throws MissingExchangeRateException {
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
         int expectedResult = 0;
         Portfolio portfolio = new Portfolio();
 
@@ -27,7 +30,11 @@ public class PortfolioTest {
     void evaluate_portfolio_amount_in_different_currencies()
         throws MissingExchangeRateException {
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
+
         bank.addExchangeRate(USD, EUR, 0.8);
         int expectedResult1 = 18;
         int expectedResult2 = 22;
@@ -50,7 +57,10 @@ public class PortfolioTest {
     @Test
     void evaluate_portfolio_with_unknown_exchange_rates() {
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
         Portfolio portfolio = new Portfolio();
         portfolio.Add(new Money(10, KRW));
 
