@@ -11,6 +11,7 @@ public final class Bank {
     private Bank(Currency pivot, Map<Currency, Double> exchangeRates) {
         this.pivot= pivot;
         this.exchangeRates = exchangeRates;
+        this.exchangeRates.put(pivot,1.);
     }
 
     public static Bank withExchangeRate(Currency pivot, Currency currency, double rate) {
@@ -35,6 +36,8 @@ public final class Bank {
         if (!convertable(from.currency(), to)) {
             throw new MissingExchangeRateException(from.currency(),to);
         }
+        double valueInPivot = from.amount() / exchangeRates.get(from.currency());
+        double res = valueInPivot * exchangeRates.get(to);
         return from.currency() == to
                 ? from.amount()
                 : from.amount() * exchangeRates.get(from.currency() + "->" + to);
