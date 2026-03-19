@@ -6,6 +6,10 @@ public class BankBuilder {
     private Currency currency;
     private HashMap<Currency , Double> exchangesRates;
 
+    private BankBuilder() {
+        exchangesRates = new HashMap();
+    }
+
     public static BankBuilder aBank() {
         return new BankBuilder();
     }

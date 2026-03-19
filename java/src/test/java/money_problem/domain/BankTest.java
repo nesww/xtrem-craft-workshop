@@ -29,7 +29,10 @@ class BankTest {
     @Test
     void convert_currency_to_same_currency_returns_same_value() throws MissingExchangeRateException {
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
         int expectedAmount = 10;
         Money m = new Money(10, EUR);
 
@@ -44,7 +47,10 @@ class BankTest {
     @Test
     void convert_currency_to_currency_with_unknown_exchange_rate_throws_exception_on_missing_exchange_rate() {
         assertThatThrownBy(() -> {
-            Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+            Bank bank = BankBuilder.aBank()
+                    .withPivotCurrency(EUR)
+                    .withExchangeRate(USD, 1.2)
+                    .build();
             Money m = new Money(10, EUR);
             bank.convert(m, KRW);
         })
@@ -55,9 +61,15 @@ class BankTest {
     @Test
     void convert_FromTo_with_different_exchange_rates_returns_different_amounts() throws MissingExchangeRateException {
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
         int expectedAmount = 12;
-        Bank bank2 = Bank.withExchangeRate(EUR, USD, 1.3);
+        Bank bank2 = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.3)
+                .build();
         int expectedAmount2 = 13;
         Money m = new Money(10, EUR);
 
