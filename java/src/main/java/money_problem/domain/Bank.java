@@ -39,7 +39,7 @@ public final class Bank {
     }
 
     private boolean convertable(Currency from, Currency to){
-        return ((from == to || hasExchangeRates(to)));
+        return ((from == to || (hasExchangeRates(from) && hasExchangeRates(to))));
     }
 
     private boolean hasExchangeRates(Currency to) {
