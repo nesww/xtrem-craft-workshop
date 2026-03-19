@@ -9,7 +9,7 @@ public final class Bank {
     private Currency pivot;
 
     private Bank(Currency pivot, Map<Currency, Double> exchangeRates) {
-        this.pivot= pivot;
+        this.pivot = pivot;
         this.exchangeRates = exchangeRates;
         this.exchangeRates.put(pivot,1.);
     }
@@ -24,6 +24,7 @@ public final class Bank {
 
     public static Bank withExchangesRates(Currency pivot, Map<Currency, Double> exchangesRates) {
         var bank = new Bank(pivot,new HashMap<>());
+        bank.pivot = pivot;
         bank.exchangeRates = exchangesRates;
         return bank;
     }
@@ -37,10 +38,7 @@ public final class Bank {
             throw new MissingExchangeRateException(from.currency(),to);
         }
         double valueInPivot = from.amount() / exchangeRates.get(from.currency());
-        double res = valueInPivot * exchangeRates.get(to);
-        return from.currency() == to
-                ? from.amount()
-                : from.amount() * exchangeRates.get(from.currency() + "->" + to);
+        return valueInPivot * exchangeRates.get(to);
     }
 
     private boolean convertable(Currency from, Currency to){
