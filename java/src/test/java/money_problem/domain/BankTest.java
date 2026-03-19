@@ -12,9 +12,13 @@ class BankTest {
     void convert_from_currency_to_other_currency_returns_double_convertions() throws MissingExchangeRateException {
         
         //Given
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
         int expectedAmount = 12;
         Money m = new Money(10, EUR);
+
         //When
         double amount = bank.convert(m, USD);
         
@@ -29,7 +33,7 @@ class BankTest {
         int expectedAmount = 10;
         Money m = new Money(10, EUR);
 
-        //When 
+        //When
         double amount = bank.convert(m, EUR);
 
         //Then
