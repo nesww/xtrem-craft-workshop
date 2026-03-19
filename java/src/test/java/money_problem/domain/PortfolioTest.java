@@ -35,7 +35,7 @@ public class PortfolioTest {
                 .withExchangeRate(USD, 1.2)
                 .build();
 
-        int expectedResult1 = 18;
+        double expectedResult1 = 18.33;
         int expectedResult2 = 22;
         Portfolio portfolio = new Portfolio();
         Money m_eur = new Money(10, EUR);
