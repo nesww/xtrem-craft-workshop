@@ -83,4 +83,25 @@ class BankTest {
         assertThat(amount2)
                 .isEqualTo(expectedAmount2);
     }
+
+    @Test
+    void given_negative_exchange_rate_bank_when_adding_exchange_rate_throws_exception() throws MissingExchangeRateException {
+        //Given
+        Bank bank = BankBuilder.aBank()
+                .withPivotCurrency(EUR)
+                .withExchangeRate(USD, 1.2)
+                .build();
+        int expectedAmount = 12;
+
+        Money m = new Money(10, EUR);
+
+        //TODO: WIP
+        //when
+        double amount = bank.convert(m, USD);
+
+        //Then
+        assertThat(amount)
+                .isEqualTo(expectedAmount);
+    }
+
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 public final class Bank {
     private Map<Currency, Double> exchangeRates;
 
-    private Currency pivot;
+    private final Currency pivot;
 
     private Bank(Currency pivot, Map<Currency, Double> exchangeRates) {
         this.pivot = pivot;
@@ -39,7 +39,7 @@ public final class Bank {
     }
 
     private boolean convertable(Currency from, Currency to){
-        return ((from == to || (hasExchangeRates(from) && hasExchangeRates(to))));
+        return (from == to || (hasExchangeRates(from) && hasExchangeRates(to)));
     }
 
     private boolean hasExchangeRates(Currency to) {
