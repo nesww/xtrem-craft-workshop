@@ -40,6 +40,4 @@ I want to convert a given amount in currency into another currency
 So it can be used to evaluate client portfolios
 ```
 
-
-
-
+![Example mapping 2](example_mapping_2.jpg)
