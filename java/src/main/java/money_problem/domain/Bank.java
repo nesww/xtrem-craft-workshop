@@ -41,11 +41,11 @@ public final class Bank {
     }
 
     private boolean convertable(Currency from, Currency to){
-        return ((from == to || hasExchangeRates(from, to)));
+        return ((from == to || hasExchangeRates(to)));
     }
 
-    private boolean hasExchangeRates(Currency from, Currency to) {
-        return exchangeRates.containsKey(from + "->" + to);
+    private boolean hasExchangeRates(Currency to) {
+        return exchangeRates.containsKey(to);
     }
 
 }
