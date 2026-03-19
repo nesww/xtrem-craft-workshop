@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static money_problem.domain.Currency.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BankTest {
 
@@ -85,23 +86,15 @@ class BankTest {
     }
 
     @Test
-    void given_negative_exchange_rate_bank_when_adding_exchange_rate_throws_exception() throws MissingExchangeRateException {
+    void given_negative_exchange_rate_bank_when_adding_exchange_rate_throws_exception() throws InvalidArgumentException {
         //Given
-        Bank bank = BankBuilder.aBank()
+        double invalidExchangeRates = -2.;
+        BankBuilder bank = BankBuilder.aBank()
                 .withPivotCurrency(EUR)
-                .withExchangeRate(USD, 1.2)
-                .build();
-        int expectedAmount = 12;
+                .withExchangeRate(USD, 1.2);
 
-        Money m = new Money(10, EUR);
-
-        //TODO: WIP
-        //when
-        double amount = bank.convert(m, USD);
-
-        //Then
-        assertThat(amount)
-                .isEqualTo(expectedAmount);
+        //When / Then
+        assertThrows(InvalidArgumentException.class,() -> bank.build());
     }
 
 }
