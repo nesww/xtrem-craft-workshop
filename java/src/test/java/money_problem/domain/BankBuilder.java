@@ -7,6 +7,7 @@ public class BankBuilder {
     private HashMap<Currency , Double> exchangesRates;
 
     public static BankBuilder aBank() {
+        return new BankBuilder();
     }
 
     public BankBuilder withPivotCurrency(Currency currency) {
@@ -20,6 +21,10 @@ public class BankBuilder {
     }
 
     public Bank build() {
-        return Bank.withExchangeRate(currency, exchangesRates.keySet().toArray()[0]);
+        Bank bank = Bank.withExchangeRate(currency, (Currency) exchangesRates.keySet().toArray()[0], (Double) exchangesRates.values().toArray()[0]);
+        for (int i = 1; i < exchangesRates.size(); i++) {
+            bank.addExchangeRate(currency, (Currency) exchangesRates.keySet().toArray()[i], (Double) exchangesRates.values().toArray()[i]);
+        }
+        return bank;
     }
 }
