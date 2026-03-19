@@ -14,7 +14,7 @@ public final class Bank {
         this.exchangeRates.put(pivot,1.);
     }
 
-    public static Bank withExchangeRate(Currency pivot, Currency currency, double rate) {
+    public static Bank withExchangeRate(Currency pivot, Currency currency, double rate) throws InvalidArgumentException {
         var bank = new Bank(pivot,new HashMap<>());
 
         bank.addExchangeRate(currency, rate);
@@ -26,7 +26,7 @@ public final class Bank {
         return new Bank(pivot,exchangesRates);
     }
 
-    public void addExchangeRate(Currency currency, double rate) {
+    public void addExchangeRate(Currency currency, double rate) throws InvalidArgumentException{
         if (rate <= 0) {
             throw new InvalidArgumentException("Exchange rate should not be negative.");
         }
