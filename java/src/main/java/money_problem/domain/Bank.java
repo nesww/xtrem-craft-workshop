@@ -4,27 +4,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Bank {
-    private final Map<String, Double> exchangeRates;
+    private Map<Currency, Double> exchangeRates;
 
-    private Bank(Map<String, Double> exchangeRates) {
+    private Currency pivot;
+
+    private Bank(Currency pivot, Map<Currency, Double> exchangeRates) {
+        this.pivot= pivot;
         this.exchangeRates = exchangeRates;
     }
 
-    public static Bank withExchangeRate(Currency currency1, Currency currency2, double rate) {
-        var bank = new Bank(new HashMap<>());
-        bank.addExchangeRate(currency1, currency2, rate);
+    public static Bank withExchangeRate(Currency pivot, Currency currency, double rate) {
+        var bank = new Bank(pivot,new HashMap<>());
+
+        bank.addExchangeRate(currency, rate);
 
         return bank;
     }
 
     public static Bank withExchangesRates(Currency pivot, Map<Currency, Double> exchangesRates) {
-        var bank = new Bank(new HashMap<>());
+        var bank = new Bank(pivot,new HashMap<>());
         bank.exchangeRates = exchangesRates;
         return bank;
     }
 
-    public void addExchangeRate(Currency currency1, Currency currency2, double rate) {
-        exchangeRates.put(currency1 + "->" + currency2, rate);
+    public void addExchangeRate(Currency currency, double rate) {
+        exchangeRates.put(currency, rate);
     }
 
     public double convert(Money from, Currency to) throws MissingExchangeRateException {
